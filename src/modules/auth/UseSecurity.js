@@ -1,4 +1,4 @@
-// import { Auth } from 'aws-amplify';
+import { getCurrentUser } from 'aws-amplify/auth';
 import { useQuery } from '@tanstack/react-query';
 import { message } from 'antd';
 import gql from 'graphql-tag';
@@ -25,7 +25,7 @@ const useSecurity = ({ onError } = {}) => {
   const { data, refetch, isLoading, error } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
-    //   const currentUser = await Auth.currentAuthenticatedUser().catch(() => undefined);
+      const currentUser = await getCurrentUser().catch(() => undefined);
 
       if (!currentUser) {
         return {
@@ -34,13 +34,13 @@ const useSecurity = ({ onError } = {}) => {
         };
       }
 
-    //   const currentCreds = await Auth.currentUserCredentials();
+      const currentCreds = await Auth.currentUserCredentials();
 
       const cognitoUser = currentUser.getSignInUserSession().getIdToken().payload;
 
       if (!cognitoUser['cognito:groups']?.includes('admin') && !cognitoUser['cognito:groups']?.includes('manager')) {
         message.error('You are not authorized to access this page');
-        // await Auth.signOut();
+        await Auth.signOut();
         return null;
       }
 
@@ -74,7 +74,7 @@ const useSecurity = ({ onError } = {}) => {
   });
 
   const signOut = async () => {
-    // await Auth.signOut();
+    await Auth.signOut();
     queryClient.setQueryData(['user'], { user: null, profile: null });
   };
 

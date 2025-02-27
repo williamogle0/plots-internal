@@ -1,17 +1,22 @@
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { createContainer } from "./container";
 import { ContainerProvider } from "./modules/core/ContainerProvider.jsx";
 import { QueryClientProvider } from "@tanstack/react-query";
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
 import { PublicRoute } from "./modules/core/PublicRoute.jsx";
 import { PrivateRoute } from "./modules/core/PrivateRoute.jsx";
-import Layout from "antd/es/layout/layout.js";
-import LoadingScreen from "./pages/LoadingScreen";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard.jsx";
-import NotFound from "./pages/NotFound.jsx";
+import Layout from "./modules/core/Layout.jsx";
+import LoadingScreen from "./modules/pages/LoadingScreen.jsx";
+import Login from "./modules/pages/Login.jsx";
+import Home from "./modules/pages/Home.jsx";
+import Dashboard from "./modules/pages/Dashboard.jsx";
+import NotFound from "./modules/pages/NotFound.jsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+Amplify.configure(awsconfig);
 
 const AppRoutes = () => {
   // State to track loading
@@ -25,31 +30,46 @@ const AppRoutes = () => {
   }, []);
 
   if (isLoading) {
-    return <LoadingScreen />;
+    return <Layout><LoadingScreen /></Layout>;
   }
 
   return (
     <BrowserRouter>
       <Routes>
 
-        <Route
-            path="/login"
-            element={
+        <Route path="/" element={<Layout><Outlet /></Layout>}> 
+
+          <Route path="/" element = {
+            <PublicRoute>
+              <Home />
+            </PublicRoute>
+          } />
+
+          <Route path="/login" element={
               <PublicRoute>
                 <Login />
-              </PublicRoute>
-            }
-          />
+            </PublicRoute>
+            }>
+          </Route>
 
-        <Route path="/" element={
-          <PrivateRoute>
-            <Layout />
-          </PrivateRoute>
-          }> 
-            <Route path="/dashboard" element={<Dashboard />} />
+          <Route path = "/home" element={
+            <PublicRoute>
+              <Home />
+            </PublicRoute>
+            }>
+          </Route>
+
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          } />
+
+          <Route path="*" element={<NotFound/>}></Route>
+
         </Route>
         
-        <Route path="*" element={<Layout><NotFound /></Layout>} />
+        
       </Routes>
     </BrowserRouter>
   );
