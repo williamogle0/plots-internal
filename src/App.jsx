@@ -15,8 +15,6 @@ import NotFound from "./modules/pages/NotFound.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-// Amplify.configure(config.aws);
-
 const AppRoutes = () => {
   // State to track loading
   const [isLoading, setIsLoading] = useState(true);

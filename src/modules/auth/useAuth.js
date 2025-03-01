@@ -17,13 +17,13 @@ const useAuth = ({ onSignIn, onSignInError, onAuthenticated } = {}) => {
       async (phoneNumber) => {
         setLoading(true);
         try {
-          console.log(phoneNumber);
           const result = await Auth.signIn(phoneNumber);
+          console.log(result);
           setAuthIntent(result);
           if (onSignIn) await onSignIn(result);
         } catch (err) {
           if (onSignInError) await onSignInError(err);
-          console.log(err);
+          // console.log(err);
         } finally {
           setLoading(false);
         }
