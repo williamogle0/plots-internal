@@ -1,5 +1,6 @@
 import { useSecurity } from './UseSecurity';
-import { Auth } from '@aws-amplify/auth';
+import * as Auth from '@aws-amplify/auth';
+
 import { message } from 'antd';
 import { atom, useAtom } from 'jotai';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -16,11 +17,13 @@ const useAuth = ({ onSignIn, onSignInError, onAuthenticated } = {}) => {
       async (phoneNumber) => {
         setLoading(true);
         try {
+          console.log(phoneNumber);
           const result = await Auth.signIn(phoneNumber);
           setAuthIntent(result);
           if (onSignIn) await onSignIn(result);
         } catch (err) {
           if (onSignInError) await onSignInError(err);
+          console.log(err);
         } finally {
           setLoading(false);
         }

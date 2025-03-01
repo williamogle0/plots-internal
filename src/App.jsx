@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { createContainer } from "./container";
 import { ContainerProvider } from "./modules/core/ContainerProvider.jsx";
 import { QueryClientProvider } from "@tanstack/react-query";
-import Amplify from 'aws-amplify';
-import config from './config.js';
 import { PublicRoute } from "./modules/core/PublicRoute.jsx";
 import { PrivateRoute } from "./modules/core/PrivateRoute.jsx";
 import Layout from "./modules/core/Layout.jsx";
@@ -16,9 +14,8 @@ import Dashboard from "./modules/pages/Dashboard.jsx";
 import NotFound from "./modules/pages/NotFound.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-Amplify.configure({
-  ...config.aws,
-});
+
+// Amplify.configure(config.aws);
 
 const AppRoutes = () => {
   // State to track loading

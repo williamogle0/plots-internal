@@ -14,6 +14,7 @@
     "@aws-amplify/ui-react": "^6.9.1",
     "@tanstack/react-query": "^5.66.9",
     "antd": "^5.24.2",
+    "antd-mask-input": "^2.0.7",
     "aws-amplify": "^6.13.2",
     "bootstrap": "^5.3.3",
     "graphql-tag": "^2.12.6",
@@ -21,6 +22,8 @@
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
+    "react-input-mask": "^2.0.4",
+    "react-input-mask-next": "^3.0.0-alpha.12",
     "tanstack": "^1.0.0"
   },
   "devDependencies": {
