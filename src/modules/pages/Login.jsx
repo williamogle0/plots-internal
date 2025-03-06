@@ -6,7 +6,6 @@ import { useAuth } from "../auth/useAuth";
 import { MaskedInput } from 'antd-mask-input';
 
 const Login = () => {
-
     const [phone, setPhone] = useState('');
     const [code, setCode] = useState('');
     const [step, setStep] = useState(0);
@@ -77,6 +76,7 @@ const Login = () => {
                     Log In
                 </button>
             </form>
+
             
         </div>
     );

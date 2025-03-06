@@ -4,13 +4,16 @@ import { Amplify } from '@aws-amplify/core';
 import { config } from './config.js';
 
 export function createContainer() {
-  const queryClient = new QueryClient(); // React Query for data fetching
+  const queryClient = new QueryClient(); 
   Amplify.configure({
     ...config.aws,
+    Auth: {
+      authenticationFlowType: "CUSTOM_AUTH",
+    },
   });
 
   return {
-    queryClient, // Makes the API client available
+    queryClient,
     amplify: Amplify,
   };
 }
