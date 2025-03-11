@@ -48,13 +48,14 @@ const Login = () => {
       [],
     );
 
-    const handleChange = (event) => {
-        setPhone(event.target.value);
+    const handlePhoneSubmit = (event) => {
+      event.preventDefault();
+      sendCode(`+${phone.replace(/\D/g, '')}`); 
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        sendCode(`+${phone.replace(/\D/g, '')}`);
+    const handleCodeSubmit = (e) => {
+      e.preventDefault();
+      verifyCode(code.replace(/\D/g, ''));
     }
 
     return(
@@ -62,7 +63,8 @@ const Login = () => {
             <h1>
                 Login Screen Here
             </h1>
-            <form className="input-group-prepend w-50 p-2" onSubmit={handleSubmit}>
+            { step === 0 && (
+            <form className="input-group-prepend w-50 p-2" onSubmit={handlePhoneSubmit}>
                 <MaskedInput
                     type="tel"
                     mask={mask}
@@ -70,12 +72,29 @@ const Login = () => {
                     id="phoneInput"
                     placeholder="Phone Number:"
                     value={phone} 
-                    onChange={handleChange} 
+                    onChange={(v) => setPhone(v.target.value)} 
                 />
                 <button type="submit" className="btn btn-outline-primary">
                     Log In
                 </button>
             </form>
+            )}
+            { step === 1 && (
+            <form className="input-group-prepend w-50 p-2" onSubmit={handleCodeSubmit}>
+                <MaskedInput
+                    type="number"
+                    mask={'0 0 0 0 0 0'}
+                    className="form-control mb-2"
+                    id="otpInput"
+                    placeholder="Enter OTP Code:"
+                    value={phone} 
+                    onChange={(v) => setCode(v.target.value)} 
+                />
+                <button type="submit" className="btn btn-outline-primary">
+                    Submit Code
+                </button>
+            </form>
+            )}
 
             
         </div>
