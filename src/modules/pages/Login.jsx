@@ -4,6 +4,7 @@ import { useMemo, useState} from "react";
 import { useSecurity } from "../auth/UseSecurity";
 import { useAuth } from "../auth/useAuth";
 import { MaskedInput } from 'antd-mask-input';
+import { message } from "antd";
 
 const Login = () => {
     const [phone, setPhone] = useState('');
@@ -50,21 +51,30 @@ const Login = () => {
 
     const handlePhoneSubmit = (event) => {
       event.preventDefault();
-      sendCode(`+${phone.replace(/\D/g, '')}`); 
+      if (phone != ""){
+        sendCode(`+${phone.replace(/\D/g, '')}`);
+      } else{
+        message.error("You must enter a phone number.");
+      }
     };
 
-    const handleCodeSubmit = (e) => {
-      e.preventDefault();
-      verifyCode(code.replace(/\D/g, ''));
+    const handleCodeSubmit = (event) => {
+      event.preventDefault();
+      if (code != ""){
+        verifyCode(code.replace(/\D/g, ''));
+      } else{
+        message.error("You must enter a code.");
+      }
     }
 
     return(
         <div className="p-2">
             <h1>
-                Login Screen Here
+                Login:
             </h1>
             { step === 0 && (
             <form className="input-group-prepend w-50 p-2" onSubmit={handlePhoneSubmit}>
+                <h5>Enter Phone Number:</h5>
                 <MaskedInput
                     type="tel"
                     mask={mask}
@@ -81,13 +91,14 @@ const Login = () => {
             )}
             { step === 1 && (
             <form className="input-group-prepend w-50 p-2" onSubmit={handleCodeSubmit}>
+                <h5>Enter OTP:</h5>
                 <MaskedInput
-                    type="number"
+                    type="phone"
                     mask={'0 0 0 0 0 0'}
                     className="form-control mb-2"
                     id="otpInput"
                     placeholder="Enter OTP Code:"
-                    value={phone} 
+                    value={code} 
                     onChange={(v) => setCode(v.target.value)} 
                 />
                 <button type="submit" className="btn btn-outline-primary">

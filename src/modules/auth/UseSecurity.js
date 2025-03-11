@@ -1,4 +1,4 @@
-import { getCurrentUser } from 'aws-amplify/auth';
+import { Auth } from '@aws-amplify/auth';
 import { useQuery } from '@tanstack/react-query';
 import { message } from 'antd';
 import gql from 'graphql-tag';
@@ -25,7 +25,7 @@ const useSecurity = ({ onError } = {}) => {
   const { data, refetch, isLoading, error } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
-      const currentUser = await getCurrentUser().catch(() => undefined);
+      const currentUser = await Auth.getCurrentUser().catch(() => undefined);
 
       if (!currentUser) {
         return {
