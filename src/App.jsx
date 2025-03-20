@@ -20,14 +20,13 @@ const AppRoutes = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulating a loading process (e.g., fetching auth state)
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
   }, []);
 
   if (isLoading) {
-    return <Layout><LoadingScreen /></Layout>;
+    return <BrowserRouter><Layout><LoadingScreen /></Layout></BrowserRouter>;
   }
 
   return (

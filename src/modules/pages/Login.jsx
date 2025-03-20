@@ -61,6 +61,7 @@ const Login = () => {
     const handleCodeSubmit = (event) => {
       event.preventDefault();
       if (code != ""){
+        console.log(code);
         verifyCode(code.replace(/\D/g, ''));
       } else{
         message.error("You must enter a code.");

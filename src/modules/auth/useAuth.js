@@ -53,6 +53,7 @@ const useAuth = ({ onSignIn, onSignInError, onAuthenticated } = {}) => {
 
   const sendCode = useCallback(
     async (phoneNumber) => {
+      console.log(phoneNumber);
       signIn(phoneNumber);
     },
     [signIn],
