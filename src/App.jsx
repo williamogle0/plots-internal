@@ -25,14 +25,14 @@ const AppRoutes = () => {
     }, 1000);
   }, []);
 
+
   if (isLoading) {
-    return <BrowserRouter><Layout><LoadingScreen /></Layout></BrowserRouter>;
+    return <LoadingScreen />;
   }
 
   return (
     <BrowserRouter>
       <Routes>
-
         <Route path="/" element={<Layout><Outlet /></Layout>}> 
 
           <Route path="/" element = {

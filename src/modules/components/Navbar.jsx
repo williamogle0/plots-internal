@@ -9,7 +9,7 @@ import { useSecurity } from '../auth/UseSecurity';
 
 function mainNavbar() {
   const navigate = useNavigate();
-  // let { user } = useSecurity();
+  const user = useSecurity();
 
   const handleSignOut = async () => {
     try {
@@ -19,16 +19,6 @@ function mainNavbar() {
       console.error("Error signing out:", error);
     }
   }
-
-
-  const [user, setUser] = useState('');
-
-  useEffect(() => {
-    setTimeout(() => {
-      setUser("me");
-      console.log("set");
-    }, 10000)
-  }, []);
 
   if (user) {
     return (
@@ -40,7 +30,7 @@ function mainNavbar() {
             <Nav className="me-auto">
               <Nav.Link href="/home">Home</Nav.Link>
               <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-              <Nav.Link as="button" onClick={handleSignOut} style={{ background: "none", border: "none", padding: 0, color: "inherit", textDecoration: "none" }}>Sign Out</Nav.Link>
+              <Nav.Link as="button" onClick={handleSignOut} style={{ background: "none", border: "none", padding: 0, color: "inherit", textDecoration: "none", }}>Sign Out</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

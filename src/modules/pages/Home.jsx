@@ -6,7 +6,7 @@ const Home = () => {
             <h1>
                 Home Page
             </h1>
-            <Link to={"/login"} class="btn btn-primary">
+            <Link to={"/login"} className="btn btn-primary">
                 login
             </Link>
         </div>

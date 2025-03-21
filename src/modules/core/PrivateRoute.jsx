@@ -4,9 +4,9 @@ import { useSecurity } from '../auth/UseSecurity';
 const PrivateRoute = ({ children }) => {
   const { user } = useSecurity();
 
-  if (user) {
+  // if (user) {
     return children;
-  }
+  // }
 
   return <Navigate to="/login" />;
 };
