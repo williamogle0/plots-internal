@@ -9,7 +9,7 @@ import { useSecurity } from '../auth/UseSecurity';
 
 function mainNavbar() {
   const navigate = useNavigate();
-  const user = useSecurity();
+  const { user } = useSecurity();
 
   const handleSignOut = async () => {
     try {
